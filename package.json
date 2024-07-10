@@ -1,0 +1,21 @@
+{
+  "name": "user-management-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "start:dev": "npx nodemon --files src/main.ts ts-node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Olatunbosun Adeoye",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
