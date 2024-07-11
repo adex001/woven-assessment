@@ -5,6 +5,9 @@ import express, { NextFunction, Request, Response } from "express";
 import config from "./config";
 import indexRouter from "./routes";
 
+// Connection to mongoDb
+import './database/connection';
+
 configDotenv();
 
 // app
@@ -24,7 +27,7 @@ app.get("/", async (req: Request, res: Response) => {
   });
 });
 
-app.use("/api/v1", indexRouter);
+app.use("/api", indexRouter);
 
 app.use("*", (req: Request, res: Response) => {
   return res.status(404).json({
@@ -41,5 +44,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(app.get("port"), () => {
-  console.log("User Management API is running on port: ", app.get("port"));
+  console.log("User Management API is running on port:", app.get("port"));
 });
+
+export default app;

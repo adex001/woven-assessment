@@ -1,12 +1,11 @@
-# Advanced User Management API
+# User Management API
 This is a RESTful API for managing user accounts and profiles, including authentication and
 file upload capabilities, built with Node.js and Express.js.
 
 ## Endpoints
 - **User Registration**
 - `POST /users/register`
-- Request Body: `{ "username": "user123", "password": "password", "email":
-"user@example.com" }`
+- Request Body: `{ "username": "user123", "password": "password", "email": "user@example.com" }`
 
 - **User Login**
 - `POST /users/login`
@@ -14,15 +13,18 @@ file upload capabilities, built with Node.js and Express.js.
 
 - **Get User Profile**
 - `GET /users/profile`
+
 - **Update User Profile**
 - `PUT /users/profile`
 - Request Body: `{ "username": "newUsername", "email": "newEmail@example.com" }`
+
 - **Upload Profile Picture**
 - `POST /users/profile/picture`
 - Form Data: `file`
 
 - **Get User Profile Picture**
 - `GET /users/profile/picture`
+
 ## Setup
 1. Clone the repository:
 ```bash
@@ -48,6 +50,7 @@ npm start
 npm test
 ```
 ## Technologies
+- Typescript
 - Node.js
 - Express.js
 - MongoDB
