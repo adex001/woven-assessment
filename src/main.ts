@@ -4,9 +4,14 @@ import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import config from "./config";
 import indexRouter from "./routes";
+import connectToDatabase from "./database/connection";
 
 // Connection to mongoDb
-import './database/connection';
+const environment =
+  (config.NODE_ENV as "development" | "test" | "production") ||
+  "development";
+
+connectToDatabase(environment);
 
 configDotenv();
 
@@ -43,8 +48,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(app.get("port"), () => {
-  console.log("User Management API is running on port:", app.get("port"));
-});
+
 
 export default app;

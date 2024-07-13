@@ -4,26 +4,26 @@ file upload capabilities, built with Node.js and Express.js.
 
 ## Endpoints
 - **User Registration**
-- `POST /users/register`
+- `POST /api/users/register`
 - Request Body: `{ "username": "user123", "password": "password", "email": "user@example.com" }`
 
 - **User Login**
-- `POST /users/login`
+- `POST /api/users/login`
 - Request Body: `{ "username": "user123", "password": "password" }`
 
 - **Get User Profile**
-- `GET /users/profile`
+- `GET /api/users/profile`
 
 - **Update User Profile**
-- `PUT /users/profile`
+- `PUT /api/users/profile`
 - Request Body: `{ "username": "newUsername", "email": "newEmail@example.com" }`
 
 - **Upload Profile Picture**
-- `POST /users/profile/picture`
+- `POST /api/users/profile/picture`
 - Form Data: `file`
 
 - **Get User Profile Picture**
-- `GET /users/profile/picture`
+- `GET /api/users/profile/picture`
 
 ## Setup
 1. Clone the repository:
@@ -40,11 +40,25 @@ npm install
 ```
 MONGO_URI=<your-mongodb-uri>
 JWT_SECRET=<your-jwt-secret>
+PORT =  <application-port> or 3000
+NODE_ENV = <can be either "development", "test" or "production">
 ```
 4. Start the server:
+
+Imn development mode: Run:
+
 ```bash
-npm start
+npm run dev
 ```
+
+On production: Run: 
+
+```bash
+npm run build
+npm run start
+```
+
+
 5. Run tests:
 ```bash
 npm test
