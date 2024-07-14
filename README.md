@@ -65,6 +65,14 @@ npm run start
 ```bash
 npm test
 ```
+
+6. For coveraverage reporting
+
+```bash
+export COVERALLS_REPO_TOKEN= <coverall_repo_token>
+npm run coverage
+```
+
 ## Technologies
 - Typescript
 - Node.js
