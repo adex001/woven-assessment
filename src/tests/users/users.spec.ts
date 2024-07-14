@@ -6,9 +6,11 @@ import User from "../../database/models/User";
 
 const badEmail = "abc@gmail";
 const goodEmail1 = "abc@gmail.com";
-const updatedEmail = "adex001@gmail.com";
+const updatedEmail = "adex0011@gmail.com";
 const username1 = "adex001";
 
+const invalidprofileToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjkzYmE1Mjk0NTQ0Zjg1MTEyNzkyOTkiLCJpYXQiOjE3MjA5NTc1MjJ9.P7F69zodfSSAf1mtHYjHj8ObHnOwXEvRsiMDTymYejQ";
 const userRoute = "/api/users";
 
 let token: string | null = null;
@@ -187,6 +189,18 @@ describe("Get User Profile API Tests", function () {
           done();
         });
     });
+    it(`Should not find the user profile`, (done) => {
+      request(app)
+        .get(userRoute + "/profile")
+        .set("Authorization", `Bearer ${invalidprofileToken}`)
+        .end((err, res) => {
+          if (err) return done(err);
+          expect(res.status).to.equal(404);
+          expect(res.body.message).to.equal("Profile not found");
+          expect(res.body.data).to.not.exist;
+          done();
+        });
+    });
   });
 });
 
@@ -242,9 +256,70 @@ describe("Update User Profile API Tests", function () {
         done();
       });
   });
+  it(`Should not find the user profile`, (done) => {
+    request(app)
+      .put(userRoute + "/profile")
+      .set("Authorization", `Bearer ${invalidprofileToken}`)
+      .send({
+        email: updatedEmail,
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal("Profile not found");
+        expect(res.body.data).to.not.exist;
+        done();
+      });
+  });
+  it(`Should not update an existing email`, (done) => {
+    request(app)
+      .put(userRoute + "/profile")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        email: updatedEmail,
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal("Email exists. please try another");
+        expect(res.body.data).to.not.exist;
+        done();
+      });
+  });
+
+  it(`Should not update an existing username`, (done) => {
+    request(app)
+      .put(userRoute + "/profile")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        username: username1,
+      })
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal(
+          "Username exists. please try another"
+        );
+        expect(res.body.data).to.not.exist;
+        done();
+      });
+  });
 });
 
 describe("Update User Profile Picture API Tests", function () {
+  it(`Should not find the user profile`, (done) => {
+    request(app)
+      .post(userRoute + "/profile/picture")
+      .set("Authorization", `Bearer ${invalidprofileToken}`)
+      .attach("file", path.resolve(__dirname, "../../../uploads", "cloud.jpeg"))
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal("Profile not found");
+        expect(res.body.data).to.not.exist;
+        done();
+      });
+  });
   it(`Should not upload a file that is not jpg, jpeg, or png.`, (done) => {
     request(app)
       .post(userRoute + "/profile/picture")
@@ -274,9 +349,23 @@ describe("Update User Profile Picture API Tests", function () {
         done();
       });
   });
+  it(`Should return No file uploaded.`, (done) => {
+    request(app)
+      .post(userRoute + "/profile/picture")
+      .set("Authorization", `Bearer ${token}`)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.status).to.equal(400);
+        expect(res.body.error).to.equal("No file uploaded");
+        done();
+      });
+  });
 });
 
 describe("Get User Profile Picture API Tests", function () {
+  after(async function () {
+    await User.deleteMany({});
+  });
   it(`Should get the profile picture`, (done) => {
     request(app)
       .get(userRoute + "/profile/picture")
@@ -327,7 +416,7 @@ describe("Get User Profile Picture API Tests", function () {
         done();
       });
   });
-  // now, get profile picture, should be 404
+
   it(`Should not get the profile picture since no profile picture`, (done) => {
     request(app)
       .get(userRoute + "/profile/picture")

@@ -1,6 +1,6 @@
 # User Management API
 This is a RESTful API for managing user accounts and profiles, including authentication and
-file upload capabilities, built with Node.js and Express.js.
+file upload capabilities, built with Typescript, Node.js, Express.js and Mongoose.
 
 [![Coverage Status](https://coveralls.io/repos/github/adex001/woven-assessment/badge.svg?branch=main)](https://coveralls.io/github/adex001/woven-assessment?branch=main)
 

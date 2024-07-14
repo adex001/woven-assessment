@@ -66,7 +66,7 @@ class UserController {
     const { userId } = req.user;
     const { username, email } = req.body;
 
-    const user = await User.findById(userId).select(["-password", "-__v"]);
+    let user = await User.findById(userId).select(["-password", "-__v"]);
 
     if (!user)
       return res.status(404).json({
@@ -84,6 +84,12 @@ class UserController {
         message: "Email exists. please try another",
       });
     }
+
+    user = await User.findByIdAndUpdate(
+      userId,
+      { username, email },
+      { new: true, runValidators: true }
+    ).select(["-password", "-__v"]);
 
     return res.json({
       message: "Profile updated successfully.",
