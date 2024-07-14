@@ -106,9 +106,9 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     // "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": [
-    "src/**/*.ts", // Include your TypeScript source files
-    "types/**/*.d.ts", // Include your .d.ts files directory
-    "src/tests/user.spec.ts"
-  ]
+  // "include": [
+  //   "src/**/*.ts", // Include your TypeScript source files
+  //   "types/**/*.d.ts", // Include your .d.ts files directory
+  //   "src/tests/user.spec.ts"
+  // ]
 }

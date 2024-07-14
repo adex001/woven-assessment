@@ -2,6 +2,7 @@ import { config as dotenvConfig } from "dotenv";
 
 dotenvConfig();
 
+
 const {
   PORT,
   NODE_ENV,
@@ -11,6 +12,15 @@ const {
   MONGO_URI_TEST,
 } = process.env;
 
+const validEnvironments = ["development", "test", "production"];
+let defaultEnvironment = null;
+
+if (!validEnvironments.includes(NODE_ENV || "")) {
+  defaultEnvironment = "development";
+} else {
+  defaultEnvironment = NODE_ENV
+}
+
 const config = {
   corsOption: {
     origin: "*",
@@ -19,7 +29,7 @@ const config = {
     preflightContinue: false,
     optionsSuccessStatus: 204,
   },
-  NODE_ENV: NODE_ENV || 'development',
+  NODE_ENV: defaultEnvironment,
   APP_PORT: PORT || 3000,
   MONGO_URI: MONGO_URI || "",
   MONGO_URI_TEST: MONGO_URI_TEST || "",

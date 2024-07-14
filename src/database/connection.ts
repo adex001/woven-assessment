@@ -19,7 +19,7 @@ const dbEnvironments = {
 
 const connectToDatabase = async (environment: Environment): Promise<void> => {
   try {
-    const mongoURI = dbEnvironments[environment].mongoURI;
+    const mongoURI = dbEnvironments[environment]?.mongoURI;
 
     if (!mongoURI) {
       throw new Error(`MongoURI for ${environment} environment is not defined`);
@@ -41,4 +41,3 @@ const connectToDatabase = async (environment: Environment): Promise<void> => {
 };
 
 export default connectToDatabase;
-export { connections };

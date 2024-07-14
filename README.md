@@ -2,6 +2,8 @@
 This is a RESTful API for managing user accounts and profiles, including authentication and
 file upload capabilities, built with Node.js and Express.js.
 
+[![Coverage Status](https://coveralls.io/repos/github/adex001/woven-assessment/badge.svg?branch=main)](https://coveralls.io/github/adex001/woven-assessment?branch=main)
+
 ## Endpoints
 - **User Registration**
 - `POST /api/users/register`
@@ -45,7 +47,7 @@ NODE_ENV = <can be either "development", "test" or "production">
 ```
 4. Start the server:
 
-Imn development mode: Run:
+In development mode: Run:
 
 ```bash
 npm run dev

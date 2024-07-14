@@ -4,10 +4,10 @@
   "main": "src/main.ts",
   "scripts": {
     "build": "tsc",
-    "coverage": "nyc",
+    "coverage": "nyc report --reporter=text-lcov | coveralls ",
     "dev": "npx nodemon --files src/server.ts ts-node",
     "start": "node dist/server.js",
-    "test": "nyc cross-env NODE_ENV=test ts-mocha -p tsconfig.json 'src/tests/**/*.spec.ts'"
+    "test": "nyc cross-env NODE_ENV=test ts-mocha -p tsconfig.json 'src/tests/**/*.spec.ts' --exit"
   },
   "author": "Olatunbosun Adeoye",
   "license": "ISC",
@@ -38,6 +38,7 @@
     "@types/multer": "^1.4.11",
     "@types/semver": "^7.5.8",
     "@types/supertest": "^6.0.2",
+    "coveralls": "^3.1.1",
     "mocha": "^4.1.0",
     "nodemon": "^3.1.4",
     "supertest": "^7.0.0",
