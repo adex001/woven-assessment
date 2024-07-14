@@ -4,28 +4,17 @@ file upload capabilities, built with Node.js and Express.js.
 
 [![Coverage Status](https://coveralls.io/repos/github/adex001/woven-assessment/badge.svg?branch=main)](https://coveralls.io/github/adex001/woven-assessment?branch=main)
 
-## Endpoints
-- **User Registration**
-- `POST /api/users/register`
-- Request Body: `{ "username": "user123", "password": "password", "email": "user@example.com" }`
+## API Endpoints
 
-- **User Login**
-- `POST /api/users/login`
-- Request Body: `{ "username": "user123", "password": "password" }`
+| **API Endpoint**                        | **Method** | **Request Body**                                                                                              | **Response**                     |
+|-----------------------------------------|------------|---------------------------------------------------------------------------------------------------------------|----------------------------------|
+| `/api/users/register`                   | `POST`     | `{ "username": "user123", "password": "password", "email": "user@example.com" }`                               | `{ "message": "User registered successfully", "data": { "id": "6693a2c2c12a2383505b619c", "username": "adex012a", "email": "adex0011@gmail.com" } }` |
+| `/api/users/login`                      | `POST`     | `{ "username": "user123", "password": "password" }`                                                           | `{ "message": "Login successful", "data": { "id": "6693a2c2c12a2383505b619c", "username": "adex012a", "email": "adex0011@gmail.com", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjkzYTJjMmMxMmEyMzgzNTA1YjYxOWMiLCJpYXQiOjE3MjA5NTE1MDQsImV4cCI6MTcyMDk1NTEwNH0.OlQrQmMEFTfijg5cq5H9XfZv0wTkeyWHg_QZzgUnehE" } }` |
+| `/api/users/profile`                    | `GET`      | None                                                                                                          | `{ "message": "User Profile Retrieved.", "data": { "_id": "6693a901bd888719d0ee3f72", "username": "adex012a", "email": "adex0011@gmail.com" } }` |
+| `/api/users/profile`                    | `PUT`      | `{ "username": "newUsername", "email": "newEmail@example.com" }`                                               | `{ "message": "Profile updated successfully.", "data": { "_id": "6693a901bd888719d0ee3f72", "username": "adex012a", "email": "adex0011@gmail.com" } }` |
+| `/api/users/profile/picture`            | `POST`     | Form Data: `file`. File should be jpg, jpeg or png                                                            | `{ "message": "Profile picture uploaded successfully.", "data": { "_id": "6693a901bd888719d0ee3f72", "username": "adex012a", "email": "adex0011@gmail.com", "profilePicture": "file-1720954479499-988120496.png" } }` |
+| `/api/users/profile/picture`            | `GET`      | None                                                                                                          | file            |
 
-- **Get User Profile**
-- `GET /api/users/profile`
-
-- **Update User Profile**
-- `PUT /api/users/profile`
-- Request Body: `{ "username": "newUsername", "email": "newEmail@example.com" }`
-
-- **Upload Profile Picture**
-- `POST /api/users/profile/picture`
-- Form Data: `file`
-
-- **Get User Profile Picture**
-- `GET /api/users/profile/picture`
 
 ## Setup
 1. Clone the repository:

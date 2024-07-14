@@ -52,6 +52,10 @@ class UserController {
   static async getProfile(req: Request, res: Response): Promise<any> {
     const { userId } = req.user;
     const user = await User.findById(userId).select(["-password", "-__v"]);
+    if (!user)
+      return res.status(404).json({
+        message: "Profile not found",
+      });
     return res.status(200).json({
       message: "User Profile Retrieved.",
       data: user,
@@ -62,11 +66,24 @@ class UserController {
     const { userId } = req.user;
     const { username, email } = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      { username, email },
-      { new: true, runValidators: true }
-    ).select(["-password", "-__v"]);
+    const user = await User.findById(userId).select(["-password", "-__v"]);
+
+    if (!user)
+      return res.status(404).json({
+        message: "Profile not found",
+      });
+
+    if (username && (await User.findOne({ username }))) {
+      return res.status(400).json({
+        message: "Username exists. please try another",
+      });
+    }
+
+    if (email && (await User.findOne({ email }))) {
+      return res.status(400).json({
+        message: "Email exists. please try another",
+      });
+    }
 
     return res.json({
       message: "Profile updated successfully.",
@@ -74,14 +91,24 @@ class UserController {
     });
   }
 
-  static async uploadProfilePicture(req: Request, res: Response) {
+  static async uploadProfilePicture(
+    req: Request,
+    res: Response
+  ): Promise<object> {
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
     const { userId } = req.user;
 
-    const user = await User.findByIdAndUpdate(
+    let user = await User.findById(userId).select(["-password", "-__v"]);
+
+    if (!user)
+      return res.status(404).json({
+        message: "Profile not found",
+      });
+
+    user = await User.findByIdAndUpdate(
       userId,
       { profilePicture: req.file.filename },
       { new: true }
