@@ -30,8 +30,8 @@ file upload capabilities, built with Node.js and Express.js.
 ## Setup
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/adex001/woven-assessment.git
+cd woven-assessment
 ```
 2. Install dependencies:
 ```bash
@@ -42,7 +42,7 @@ npm install
 ```
 MONGO_URI=<your-mongodb-uri>
 JWT_SECRET=<your-jwt-secret>
-PORT =  <application-port> or 3000
+PORT =  <application-port> Default is 3000
 NODE_ENV = <can be either "development", "test" or "production">
 ```
 4. Start the server:
@@ -66,7 +66,7 @@ npm run start
 npm test
 ```
 
-6. For coveraverage reporting
+6. For coverage reporting
 
 ```bash
 export COVERALLS_REPO_TOKEN= <coverall_repo_token>
